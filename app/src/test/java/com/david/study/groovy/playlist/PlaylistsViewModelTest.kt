@@ -35,7 +35,7 @@ class PlaylistsViewModelTest : BaseUnitTest() {
 
     private fun mockSuccessfulReturn() = runBlocking {
         whenever(repository.getPlaylists()).thenReturn(
-            playlists
+            Result.success(playlists)
         )
     }
 }
