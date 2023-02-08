@@ -17,11 +17,6 @@ class PlaylistViewModel(
     }
 
     private fun mockPlaylistsList() {
-        val playlists = mutableListOf<Playlist>()
-        for (i in 0..10) {
-            val playlist = Playlist("$i", "Playlist $i", "Category $i")
-            playlists.add(playlist)
-        }
 //        this.playlists.value = playlists
     }
 
