@@ -1,55 +1,43 @@
 package com.david.study.groovy.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.david.study.groovy.databinding.FragmentPlaylistsBinding
-import com.david.study.groovy.model.Playlist
+import com.david.study.groovy.ext.viewModelsFactory
+import com.david.study.groovy.repository.PlaylistRepository
+import com.david.study.groovy.ui.viewModels.PlaylistViewModel
 
 class PlaylistsFragment : Fragment() {
 
     companion object {
-
-        const val TAG = "PlaylistsFragment"
-
-        fun newInstance(): PlaylistsFragment {
-            val fragment = PlaylistsFragment()
-            val bundle = Bundle()
-            fragment.arguments = bundle
-            return fragment
-        }
+        fun newInstance(): PlaylistsFragment = PlaylistsFragment()
     }
 
-    lateinit var binding: FragmentPlaylistsBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate: ")
+    private lateinit var binding: FragmentPlaylistsBinding
+    private val repository: PlaylistRepository by lazy {
+        PlaylistRepository()
+    }
+    private val viewModel: PlaylistViewModel by viewModelsFactory {
+        PlaylistViewModel(repository)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        Log.d(TAG, "onCreateView: ")
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentPlaylistsBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "onViewCreated: ")
+        setupObservers()
+    }
 
-        val playlists = mutableListOf<Playlist>()
-        for (i in 0..10) {
-            val playlist = Playlist("$i", "Playlist $i", "Category $i", i)
-            playlists.add(playlist)
+    private fun setupObservers() {
+        viewModel.playlists.observe(viewLifecycleOwner) {
+            val playlistAdapter = PlaylistAdapter(it)
+            binding.list.adapter = playlistAdapter
         }
-        val playlistAdapter = PlaylistAdapter(playlists)
-        binding.list.adapter = playlistAdapter
     }
 }
