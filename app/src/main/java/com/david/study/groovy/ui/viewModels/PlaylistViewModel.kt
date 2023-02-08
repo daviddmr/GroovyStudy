@@ -6,18 +6,13 @@ import com.david.study.groovy.model.Playlist
 import com.david.study.groovy.repository.PlaylistRepository
 
 class PlaylistViewModel(
-    repository: PlaylistRepository
+    private val repository: PlaylistRepository
 ) : ViewModel() {
 
     val playlists = MutableLiveData<List<Playlist>>()
 
-    init {
-        mockPlaylistsList()
-        repository.getPlaylists()
+    fun getPlaylistList() {
+        val result = repository.getPlaylists()
+        this.playlists.value = result
     }
-
-    private fun mockPlaylistsList() {
-//        this.playlists.value = playlists
-    }
-
 }

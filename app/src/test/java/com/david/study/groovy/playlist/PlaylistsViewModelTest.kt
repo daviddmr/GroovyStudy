@@ -28,6 +28,7 @@ class PlaylistsViewModelTest : BaseUnitTest() {
 
     @Test
     fun getPlayListFromRepositoryReturnValue() {
+        viewModel.getPlaylistList()
         mockSuccessfulReturn()
         Assert.assertEquals(playlists, viewModel.playlists.getValueForTest())
     }
