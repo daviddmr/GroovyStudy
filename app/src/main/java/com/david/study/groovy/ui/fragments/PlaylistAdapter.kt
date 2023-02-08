@@ -20,7 +20,7 @@ class PlaylistAdapter(
         val item = values[position]
         holder.playlistTitle.text = item.name
         holder.playlistCategory.text = item.category
-//        holder.playlistImage.setImageResource(item.image)
+        holder.playlistImage.setImageResource(item.image)
     }
 
     override fun getItemCount(): Int = values.size
