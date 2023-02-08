@@ -3,6 +3,7 @@ package com.david.study.groovy
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.david.study.groovy.ui.activities.MainActivity
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
