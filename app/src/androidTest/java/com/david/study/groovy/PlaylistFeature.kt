@@ -1,13 +1,12 @@
 package com.david.study.groovy
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-
+import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import org.junit.Assert.*
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -18,11 +17,10 @@ import org.junit.Assert.*
 class PlaylistFeature {
 
     val mActivityRule = ActivityTestRule(MainActivity::class.java)
+        @Rule get
 
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.david.study.groovy", appContext.packageName)
+    fun displayScreenTitle() {
+        assertDisplayed("Playlists")
     }
 }
