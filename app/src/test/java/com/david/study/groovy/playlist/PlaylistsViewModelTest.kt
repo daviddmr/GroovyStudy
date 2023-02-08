@@ -18,6 +18,9 @@ class PlaylistsViewModelTest : BaseUnitTest() {
     private val viewModel: PlaylistViewModel by lazy {
         PlaylistViewModel(repository)
     }
+    private val exception: RuntimeException by lazy {
+        RuntimeException("Something went wrong")
+    }
 
 //    @Test
 //    fun getPlaylistFromRepositoryIsCalled() {
@@ -33,9 +36,21 @@ class PlaylistsViewModelTest : BaseUnitTest() {
         Assert.assertEquals(playlists, viewModel.playlists.getValueForTest())
     }
 
+    @Test
+    fun getPlaylistReturnError() = runBlocking {
+        mockFailureReturn()
+        Assert.assertEquals(null, viewModel.playlists.getValueForTest())
+    }
+
     private fun mockSuccessfulReturn() = runBlocking {
         whenever(repository.getPlaylists()).thenReturn(
             Result.success(playlists)
+        )
+    }
+
+    private fun mockFailureReturn() = runBlocking {
+        whenever(repository.getPlaylists()).thenReturn(
+            Result.failure(exception)
         )
     }
 }
