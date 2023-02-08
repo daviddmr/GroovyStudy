@@ -2,8 +2,10 @@ package com.david.study.groovy.ui.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.david.study.groovy.model.Playlist
 import com.david.study.groovy.repository.PlaylistRepository
+import kotlinx.coroutines.launch
 
 class PlaylistViewModel(
     private val repository: PlaylistRepository
@@ -11,8 +13,14 @@ class PlaylistViewModel(
 
     val playlists = MutableLiveData<List<Playlist>>()
 
-    fun getPlaylistList() {
-        val result = repository.getPlaylists()
-        this.playlists.value = result
+    init {
+        getPlaylistList()
+    }
+
+    private fun getPlaylistList() {
+        viewModelScope.launch {
+            val result = repository.getPlaylists()
+            playlists.value = result
+        }
     }
 }

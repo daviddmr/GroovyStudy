@@ -6,9 +6,10 @@ import com.david.study.groovy.ui.viewModels.PlaylistViewModel
 import com.david.study.groovy.utils.BaseUnitTest
 import com.david.study.groovy.utils.getValueForTest
 import com.nhaarman.mockitokotlin2.whenever
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
-import org.mockito.Mockito.*
+import org.mockito.Mockito.mock
 
 class PlaylistsViewModelTest : BaseUnitTest() {
 
@@ -27,13 +28,12 @@ class PlaylistsViewModelTest : BaseUnitTest() {
 //    }
 
     @Test
-    fun getPlayListFromRepositoryReturnValue() {
-        viewModel.getPlaylistList()
+    fun getPlayListFromRepositoryReturnValue() = runBlocking {
         mockSuccessfulReturn()
         Assert.assertEquals(playlists, viewModel.playlists.getValueForTest())
     }
 
-    private fun mockSuccessfulReturn() {
+    private fun mockSuccessfulReturn() = runBlocking {
         whenever(repository.getPlaylists()).thenReturn(
             playlists
         )
