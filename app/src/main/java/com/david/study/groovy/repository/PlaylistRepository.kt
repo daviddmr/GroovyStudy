@@ -16,7 +16,6 @@ class PlaylistRepository(private val service: PlaylistService) {
 //        } else {
 //            Result.failure(java.lang.RuntimeException("No result"))
 //        }
-        service.fetchPlaylists()
-        return Result.success(listOf())
+        return service.fetchPlaylists()
     }
 }
