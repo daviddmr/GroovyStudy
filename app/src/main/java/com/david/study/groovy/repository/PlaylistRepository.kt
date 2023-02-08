@@ -1,8 +1,9 @@
 package com.david.study.groovy.repository
 
 import com.david.study.groovy.model.Playlist
+import com.david.study.groovy.service.PlaylistService
 
-class PlaylistRepository {
+class PlaylistRepository(private val service: PlaylistService) {
     suspend fun getPlaylists(): Result<List<Playlist>> {
 //        val playlists = mutableListOf<Playlist>()
 //        for (i in 0..10) {
@@ -15,6 +16,7 @@ class PlaylistRepository {
 //        } else {
 //            Result.failure(java.lang.RuntimeException("No result"))
 //        }
-        TODO("Not implemented yet")
+        service.fetchPlaylists()
+        return Result.success(listOf())
     }
 }

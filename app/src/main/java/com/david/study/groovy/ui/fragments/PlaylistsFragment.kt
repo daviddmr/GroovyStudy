@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.david.study.groovy.databinding.FragmentPlaylistsBinding
 import com.david.study.groovy.ext.viewModelsFactory
 import com.david.study.groovy.repository.PlaylistRepository
+import com.david.study.groovy.service.PlaylistService
 import com.david.study.groovy.viewModels.PlaylistViewModel
 
 class PlaylistsFragment : Fragment() {
@@ -17,8 +18,11 @@ class PlaylistsFragment : Fragment() {
     }
 
     private lateinit var binding: FragmentPlaylistsBinding
+    private val service: PlaylistService by lazy {
+        PlaylistService()
+    }
     private val repository: PlaylistRepository by lazy {
-        PlaylistRepository()
+        PlaylistRepository(service)
     }
     private val viewModel: PlaylistViewModel by viewModelsFactory {
         PlaylistViewModel(repository)
