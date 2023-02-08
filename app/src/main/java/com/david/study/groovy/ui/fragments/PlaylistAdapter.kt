@@ -18,9 +18,9 @@ class PlaylistAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-//        holder.playlistImage.text = item.id
-        holder.playlistTitle.text = "Title 01"
-        holder.playlistCategory.text = "Category 01"
+        holder.playlistTitle.text = item.name
+        holder.playlistCategory.text = item.category
+//        holder.playlistImage.setImageResource(item.image)
     }
 
     override fun getItemCount(): Int = values.size
