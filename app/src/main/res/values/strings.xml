@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GroovyStudy</string>
+
+    <string name="activity_main_title">Playlists</string>
 </resources>
