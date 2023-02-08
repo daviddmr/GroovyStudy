@@ -1,8 +1,8 @@
-package com.david.study.groovy.playlist
+package com.david.study.groovy.viewModels
 
 import com.david.study.groovy.model.Playlist
 import com.david.study.groovy.repository.PlaylistRepository
-import com.david.study.groovy.ui.viewModels.PlaylistViewModel
+import com.david.study.groovy.viewModels.PlaylistViewModel
 import com.david.study.groovy.utils.BaseUnitTest
 import com.david.study.groovy.utils.getValueForTest
 import com.nhaarman.mockitokotlin2.whenever

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.david.study.groovy.databinding.FragmentPlaylistsBinding
 import com.david.study.groovy.ext.viewModelsFactory
 import com.david.study.groovy.repository.PlaylistRepository
-import com.david.study.groovy.ui.viewModels.PlaylistViewModel
+import com.david.study.groovy.viewModels.PlaylistViewModel
 
 class PlaylistsFragment : Fragment() {
 

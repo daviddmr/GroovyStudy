@@ -1,4 +1,4 @@
-package com.david.study.groovy.ui.viewModels
+package com.david.study.groovy.viewModels
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
