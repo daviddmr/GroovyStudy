@@ -43,16 +43,20 @@ class PlaylistRepositoryTest : BaseUnitTest() {
     }
 
     private fun mockSuccessCase(): PlaylistRepository {
-        whenever(service.fetchPlaylists()).thenReturn(
-            Result.success(playlists)
-        )
+        runBlocking {
+            whenever(service.fetchPlaylists()).thenReturn(
+                Result.success(playlists)
+            )
+        }
         return PlaylistRepository(service)
     }
 
     private fun mockFailureCase(): PlaylistRepository {
-        whenever(service.fetchPlaylists()).thenReturn(
-            Result.failure(exception)
-        )
+        runBlocking {
+            whenever(service.fetchPlaylists()).thenReturn(
+                Result.failure(exception)
+            )
+        }
         return PlaylistRepository(service)
     }
 }
