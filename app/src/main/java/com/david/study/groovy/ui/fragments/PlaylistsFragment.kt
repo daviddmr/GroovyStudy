@@ -11,6 +11,9 @@ import com.david.study.groovy.interfaces.PlaylistApi
 import com.david.study.groovy.repository.PlaylistRepository
 import com.david.study.groovy.service.PlaylistService
 import com.david.study.groovy.viewModels.PlaylistViewModel
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class PlaylistsFragment : Fragment() {
 
@@ -18,9 +21,17 @@ class PlaylistsFragment : Fragment() {
         fun newInstance(): PlaylistsFragment = PlaylistsFragment()
     }
 
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("http://localhost:3000")
+        .client(OkHttpClient())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    private val api = retrofit.create(PlaylistApi::class.java)
+
     private lateinit var binding: FragmentPlaylistsBinding
     private val service: PlaylistService by lazy {
-        PlaylistService(object : PlaylistApi {})
+        PlaylistService(api)
     }
     private val repository: PlaylistRepository by lazy {
         PlaylistRepository(service)
