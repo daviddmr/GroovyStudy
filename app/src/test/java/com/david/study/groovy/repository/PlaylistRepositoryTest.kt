@@ -1,7 +1,7 @@
-package com.david.study.groovy.service
+package com.david.study.groovy.repository
 
 import com.david.study.groovy.model.Playlist
-import com.david.study.groovy.repository.PlaylistRepository
+import com.david.study.groovy.service.PlaylistService
 import com.david.study.groovy.utils.BaseUnitTest
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
