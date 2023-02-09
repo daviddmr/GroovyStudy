@@ -20,7 +20,7 @@ class PlaylistViewModel(
     }
 
     private fun getPlaylistList() {
-        viewModelScope.launch(CoroutineExceptionHandler { context, throwable ->
+        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             Log.d("PlaylistViewModel", "getPlaylistListException: ${throwable.message}")
         }) {
             val result = repository.getPlaylists()
