@@ -7,8 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.david.study.groovy.model.Playlist
 import com.david.study.groovy.repository.PlaylistRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,7 +21,7 @@ class PlaylistViewModel @Inject constructor(
         getPlaylistList()
     }
 
-    private fun getPlaylistList() {
+    fun getPlaylistList() {
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             Log.d("PlaylistViewModel", "getPlaylistListException: ${throwable.message}")
         }) {

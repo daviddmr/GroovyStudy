@@ -2,7 +2,6 @@ package com.david.study.groovy.viewModels
 
 import com.david.study.groovy.model.Playlist
 import com.david.study.groovy.repository.PlaylistRepository
-import com.david.study.groovy.viewModels.PlaylistViewModel
 import com.david.study.groovy.utils.BaseUnitTest
 import com.david.study.groovy.utils.getValueForTest
 import com.nhaarman.mockitokotlin2.whenever
@@ -14,48 +13,47 @@ import org.mockito.Mockito.*
 class PlaylistsViewModelTest : BaseUnitTest() {
 
     private val repository: PlaylistRepository = mock()
-    private val playlists = mock<List<Playlist>>()
-    private val exception: RuntimeException by lazy {
-        RuntimeException("Something went wrong")
-    }
+    private val playlists: List<Playlist> = mock()
 
     @Test
-    fun getPlaylistFromRepositoryIsCalled() {
+    fun getPlaylistsFromRepositoryShouldBeCalled() {
         runBlocking {
-            val viewModel = mockSuccessfulReturn()
-            viewModel.playlists.getValueForTest()
-
+            val sut = PlaylistViewModel(repository)
+            sut.getPlaylistList()
             verify(repository, times(1)).getPlaylists()
         }
     }
 
     @Test
-    fun getPlayListFromRepositoryReturnValue() = runBlocking {
-        val viewModel = mockSuccessfulReturn()
-        Assert.assertEquals(playlists, viewModel.playlists.getValueForTest())
+    fun getPlaylistSuccessCaseReturnList() {
+        runBlocking {
+            val sut = mockSuccessCase()
+            sut.getPlaylistList()
+            val result = sut.playlists.getValueForTest()
+            Assert.assertEquals(playlists, result)
+        }
     }
 
     @Test
-    fun getPlaylistReturnError() = runBlocking {
-        val viewModel = mockFailureReturn()
-        Assert.assertEquals(null, viewModel.playlists.getValueForTest())
+    fun getPlaylistsFailureCaseReturnEmptyList() {
+        runBlocking {
+            val sut = mockFailureCase()
+            sut.getPlaylistList()
+            Assert.assertEquals(null, sut.playlists.getValueForTest())
+        }
     }
 
-    private fun mockSuccessfulReturn(): PlaylistViewModel {
-        runBlocking {
-            whenever(repository.getPlaylists()).thenReturn(
-                Result.success(playlists)
-            )
-        }
+    private suspend fun mockSuccessCase(): PlaylistViewModel {
+        whenever(repository.getPlaylists()).thenReturn(
+            Result.success(playlists)
+        )
         return PlaylistViewModel(repository)
     }
 
-    private fun mockFailureReturn(): PlaylistViewModel {
-        runBlocking {
-            whenever(repository.getPlaylists()).thenReturn(
-                Result.failure(exception)
-            )
-        }
+    private suspend fun mockFailureCase(): PlaylistViewModel {
+        whenever(repository.getPlaylists()).thenReturn(
+            Result.failure(RuntimeException())
+        )
         return PlaylistViewModel(repository)
     }
 }
